@@ -9,8 +9,8 @@ namespace LoginPage.Controllers
     public class HomeController : Controller
     {
         // Describe the username and password
-        string UserName = "admin";
-        string Password = "123456";
+        string userNameGlobal = "admin";
+        string passwordGlobal = "123456";
 
         public ActionResult Index()
         {
@@ -23,27 +23,26 @@ namespace LoginPage.Controllers
         [HttpPost]
         public ActionResult Index(string userName , string password) // Our Login Function
         {
-            if(userName.Length < 5 || password.Length < 5)  //Username or password if smaller than five.Then go if block.
+            if(userName.Length < 5)//Username smaller than five character
             {
-                if (userName.Length < 5)//Username smaller than five character
-                {
-                    ViewBag.Authentication = "Kullanıcı adi 5 karakterden kucuk olamaz"; //Authentication set the sentence
-                    return View();
-                }
-                // if else
-                ViewBag.Authentication = "Password 5 karakterden kucuk olamaz"; //Authentication set the sentence
+                ViewBag.Authentication = "The username can not be less than 5 characters"; //Authentication set the sentence
                 return View();
             }
-            if (UserName == userName && Password == password) // If the username and password are entered correctly
+            if(password.Length < 5)
+            {
+                ViewBag.Authentication = "The password can not bee less than 5 characters"; //Authentication set the sentence
+                return View();
+            }
+            
+            if (userNameGlobal == userName && passwordGlobal == password) // If the username and password are entered correctly
 
             {
-                ViewBag.Authentication = "Başarıyla Giriş Yaptınız."; //Authentication set the sentence
+                ViewBag.Authentication = "Succesfully sign in"; //Authentication set the sentence
                 return View();
             }
             // if else
-            ViewBag.Authentication = "Kullanıcı adi veya şifre hatalıdır."; //Authentication set the sentence
+            ViewBag.Authentication = "The username or password are incorrect"; //Authentication set the sentence
             return View();
         }
-        
     }
 }
